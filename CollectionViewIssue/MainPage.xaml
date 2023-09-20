@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:CollectionViewIssue"
+             x:DataType="local:MainPageViewModel"
+             x:Class="CollectionViewIssue.MainPage"
+             x:Name="root">
+    <Grid>
+        <CollectionView Grid.Row="1"
+                        SelectionMode="None"
+                        CanReorderItems="False"
+                        ItemSizingStrategy="MeasureAllItems"
+                        ItemsSource="{Binding Assessments}">
+
+            <CollectionView.ItemsLayout>
+                <OnIdiom x:TypeArguments="ItemsLayout">
+                    <!--  Grid view for Desktop  -->
+                    <OnIdiom.Desktop>
+                        <GridItemsLayout Orientation="Vertical"
+                                         Span="4"
+                                         HorizontalItemSpacing="5"
+                                         VerticalItemSpacing="5" />
+                    </OnIdiom.Desktop>
+
+                    <!--  Vertical column view for Phone  -->
+                    <OnIdiom.Phone>
+                        <LinearItemsLayout Orientation="Vertical"
+                                           ItemSpacing="10" />
+                    </OnIdiom.Phone>
+                </OnIdiom>
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="local:Assessment">
+
+                    <Border Stroke="Black"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 10,10,10,10"
+                            BackgroundColor="#d9f2ef"
+                            Padding="10">
+                        <Grid RowDefinitions="Auto, *, Auto">
+                            <!--  Header  -->
+                            <Grid Grid.Row="0"
+                                  Margin="0,0,0,10">
+                                <Label Text="{Binding Title}"
+                                       FontAttributes="Bold"
+                                       FontSize="32"
+                                       TextColor="#2c2c2c"
+                                       HorizontalOptions="StartAndExpand"
+                                       VerticalOptions="StartAndExpand" />
+                            </Grid>
+
+                            <!--  Body  -->
+                            <Grid Grid.Row="1"
+                                  ColumnDefinitions="*, Auto"
+                                  RowDefinitions="*, Auto"
+                                  RowSpacing="10"
+                                  Margin="0,0,0,10">
+
+                                <StackLayout Grid.Column="0"
+                                             Grid.Row="0"
+                                             Orientation="Vertical">
+
+                                    <Label Text="Program"
+                                           FontAttributes="None"
+                                           FontSize="13"
+                                           TextColor="#6e6e6e"
+                                           HorizontalOptions="StartAndExpand"
+                                           VerticalOptions="StartAndExpand" />
+
+                                    <Label Text="{Binding Program}"
+                                           FontAttributes="Bold"
+                                           FontSize="16"
+                                           TextColor="#2c2c2c"
+                                           HorizontalOptions="StartAndExpand"
+                                           VerticalOptions="StartAndExpand" />
+
+
+                                    <Label Text="Course"
+                                           FontAttributes="None"
+                                           FontSize="13"
+                                           TextColor="#6e6e6e"
+                                           HorizontalOptions="StartAndExpand"
+                                           VerticalOptions="StartAndExpand" />
+
+                                    <Label Text="{Binding Course}"
+                                           FontAttributes="Bold"
+                                           FontSize="16"
+                                           TextColor="#2c2c2c"
+                                           HorizontalOptions="StartAndExpand"
+                                           VerticalOptions="StartAndExpand" />
+
+                                    <Label Text="End Date"
+                                           FontAttributes="None"
+                                           FontSize="13"
+                                           TextColor="#6e6e6e"
+                                           HorizontalOptions="StartAndExpand"
+                                           VerticalOptions="StartAndExpand" />
+
+                                    <Label Text="{Binding EndDate}"
+                                           FontAttributes="Bold"
+                                           FontSize="16"
+                                           TextColor="#2c2c2c"
+                                           HorizontalOptions="StartAndExpand"
+                                           VerticalOptions="StartAndExpand" />
+                                </StackLayout>
+
+                                <BoxView Grid.Column="0"
+                                         Grid.ColumnSpan="2"
+                                         Grid.Row="1"
+                                         HeightRequest="1"
+                                         HorizontalOptions="FillAndExpand"
+                                         VerticalOptions="EndAndExpand"
+                                         BackgroundColor="#fcfcfc"
+                                         Margin="0,0,0,0" />
+                            </Grid>
+
+                            <!--  Footer  -->
+                            <Grid Grid.Row="2"
+                                  ColumnDefinitions="*, *"
+                                  ColumnSpacing="5">
+
+                                <Button Grid.Column="0"
+                                        Text="Download"
+                                        ContentLayout="Left,5"
+                                        HeightRequest="50"
+                                        CornerRadius="10"
+                                        Command="{Binding Path=BindingContext.DownloadCommand, Source={x:Reference root}}"
+                                        CommandParameter="{Binding .}">
+                                </Button>
+
+                                <Button Grid.Column="1"
+                                        Text="Upload"
+                                        ContentLayout="Left,5"
+                                        HeightRequest="50"
+                                        CornerRadius="10"
+                                        Command="{Binding Path=BindingContext.UploadCommand, Source={x:Reference root}}"
+                                        CommandParameter="{Binding .}">
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
